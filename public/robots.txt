@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.altawarpharmacy.ae/sitemap.xml
+Host: www.altawarpharmacy.ae
