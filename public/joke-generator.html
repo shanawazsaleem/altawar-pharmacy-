@@ -127,7 +127,7 @@
   // Escape to avoid accidental HTML injection
   function escapeHtml(s) {
     if (!s) return '';
-    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+    return String(s).replace(/[&<>"]'/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
   // Fetch joke and update UI
@@ -195,6 +195,13 @@
 
   // Load an initial joke
   fetchJoke();
+
+  // Register service worker for offline support
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      /* registration failed */
+    });
+  }
 })();
 </script>
 </body>
