@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Al Tawar Pharmacy | صيدلية الطوار - Hor Al Anz, Deira, Dubai</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Al Tawar Pharmacy — Licensed pharmacists in Dubai. Prescription refills, OTC medicines, vaccinations, home delivery and free consultations. التوصيل للمنزل وخدمات استشارية." />
+  <link rel="canonical" href="https://www.altawarpharmacy.ae/" />
+  <meta name="theme-color" content="#d32f2f" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Al Tawar Pharmacy — Hor Al Anz, Deira, Dubai" />
+  <meta property="og:description" content="Prescription refills, OTC medicines, vaccinations, home delivery and free consultations." />
+  <meta property="og:url" content="https://www.altawarpharmacy.ae/" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Al+Tawar+Pharmacy" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Al Tawar Pharmacy — Hor Al Anz, Deira, Dubai" />
+  <meta name="twitter:description" content="Prescription refills, OTC medicines, vaccinations, home delivery and free consultations." />
+  <meta name="twitter:image" content="https://via.placeholder.com/1200x630.png?text=Al+Tawar+Pharmacy" />
+
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
+
+  <style>
+    :root{
+      --primary-red: #d32f2f;
+      --dark-red: #9a0007;
+      --accent-light: #ffebee;
+      --text-dark: #2c3e50;
+      --text-light: #6c757d;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --container-padding: 5%;
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: 'Poppins', 'Cairo', sans-serif;
+      color:var(--text-dark);
+      background-color:#fcfcfc;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overscroll-behavior-y: none;
+    }
+
+    /* Top Bar */
+    .top-bar{
+      background-color:var(--primary-red);
+      color:var(--white);
+      padding:10px var(--container-padding);
+      font-size:.9rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .top-bar .top-left, .top-bar .top-right{display:flex;gap:15px;align-items:center;flex-wrap:wrap}
+    .top-bar a{color:var(--white);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+    .top-bar .badge{background:rgba(255,255,255,0.12);padding:6px 10px;border-radius:20px;font-weight:600}
+
+    /* Header / Nav */
+    header{
+      background-color:var(--white);
+      padding:15px var(--container-padding);
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .brand-logo{display:flex;align-items:center;gap:15px}
+    .logo-icon{font-size:2.4rem;color:var(--primary-red)}
+    .brand-name h1{font-size:1.35rem;color:var(--primary-red);font-weight:700;line-height:1.1}
+    .brand-name h2{font-size:1rem;color:var(--text-dark);font-weight:600}
+
+    .nav-buttons{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.95rem;
+      display:inline-flex;align-items:center;gap:8px;transition:all .22s ease;cursor:pointer;border:none;
+    }
+    .btn:focus{outline:3px solid rgba(0,0,0,0.08);outline-offset:2px}
+    .btn-whatsapp{background-color:#25D366;color:white}
+    .btn-whatsapp:hover{background-color:#1ebc57}
+    .btn-primary{background-color:var(--primary-red);color:white}
+    .btn-primary:hover{background-color:var(--dark-red)}
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(135deg,var(--accent-light) 0%, #ffffff 100%);
+      padding:60px var(--container-padding);
+      text-align:center;
+    }
+    .hero-inner{max-width:980px;margin:0 auto}
+    .hero h2{font-size:2.2rem;color:var(--primary-red);margin-bottom:12px}
+    .hero p{font-size:1.05rem;color:var(--text-light);max-width:720px;margin:0 auto 22px}
+    .hero .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+
+    /* Services */
+    .section{
+      padding:48px var(--container-padding);
+      max-width:1200px;margin:0 auto;
+    }
+    .section-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+    .section-header h3{font-size:1.35rem;color:var(--primary-red);font-weight:700}
+    .services-grid{
+      display:grid;
+      gap:18px;
+      grid-template-columns:repeat(3,1fr);
+    }
+    .service-card{
+      background:var(--white);
+      border-radius:10px;padding:18px;box-shadow:var(--shadow);
+      display:flex;gap:12px;align-items:flex-start;transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .service-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.08)}
+    .service-icon{font-size:1.8rem;color:var(--primary-red);}
+    .service-content h4{font-size:1.05rem;margin-bottom:6px}
+    .service-content p{font-size:.95rem;color:var(--text-light)}
+
+    /* Products Grid */
+    .products-grid{
+      display:grid;gap:18px;
+      grid-template-columns:repeat(4,1fr);
+    }
+    .product{
+      background:var(--white);border-radius:10px;padding:14px;box-shadow:var(--shadow);
+      display:flex;flex-direction:column;gap:10px;transition:transform .18s ease;
+    }
+    .product img{width:100%;height:160px;object-fit:cover;border-radius:8px;background:#f7f7f7}
+    .product h5{font-size:.98rem;margin-top:6px}
+    .product .price{font-weight:700;color:var(--primary-red)}
+    .product .meta{font-size:.9rem;color:var(--text-light)}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:24px}
+    .contact-card{background:var(--white);padding:18px;border-radius:10px;box-shadow:var(--shadow)}
+    .contact-card h4{margin-bottom:12px}
+    .contact-form label{display:block;font-size:.9rem;margin-bottom:6px}
+    .contact-form input,.contact-form textarea{
+      width:100%;padding:10px;border:1px solid #e6e6e6;border-radius:8px;margin-bottom:12px;font-size:.95rem;
+    }
+    .contact-form textarea{min-height:120px;resize:vertical}
+    .contact-info p{margin-bottom:8px;color:var(--text-light)}
+
+    /* Footer */
+    footer{
+      background:linear-gradient(0deg,#f8f8f8,#ffffff);
+      padding:28px var(--container-padding);margin-top:18px;border-top:1px solid #f0f0f0;
+    }
+    .footer-grid{display:flex;gap:24px;flex-wrap:wrap;justify-content:space-between;align-items:flex-start}
+    .footer-brand h4{color:var(--primary-red);margin-bottom:10px}
+    .socials a{display:inline-flex;margin-right:10px;color:var(--text-dark);text-decoration:none}
+
+    /* Small helpers */
+    .muted{color:var(--text-light)}
+    .center{text-align:center}
+    .chip{display:inline-block;padding:6px 10px;border-radius:20px;background:#fff6f6;color:var(--primary-red);font-weight:600}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .products-grid{grid-template-columns:repeat(3,1fr)}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+      .products-grid img{height:140px}
+    }
+    @media (max-width:760px){
+      header{padding:12px 4%}
+      .services-grid{grid-template-columns:1fr}
+      .products-grid{grid-template-columns:repeat(2,1fr)}
+      .hero h2{font-size:1.6rem}
+      .brand-name h1{font-size:1.1rem}
+      .top-bar{font-size:.85rem;padding:8px 4%}
+    }
+    @media (max-width:420px){
+      .products-grid{grid-template-columns:1fr}
+      .nav-buttons{width:100%;justify-content:flex-end}
+      .brand-name h1{font-size:1rem}
+    }
+
+    /* RTL support helpers */
+    [dir="rtl"] body {direction:rtl}
+    [dir="rtl"] .top-bar {flex-direction:row-reverse}
+    [dir="rtl"] header {flex-direction:row-reverse}
+    [dir="rtl"] .brand-logo {flex-direction:row-reverse}
+    [dir="rtl"] .service-card, [dir="rtl"] .product {text-align:right}
+    [dir="rtl"] .socials a{margin-left:10px;margin-right:0}
+  </style>
+  <!-- Structured Data (LocalBusiness) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Pharmacy",
+    "name": "Al Tawar Pharmacy",
+    "telephone": "+971123456789",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Hor Al Anz, Deira",
+      "addressLocality": "Dubai",
+      "addressCountry": "AE"
+    },
+    "openingHours": "Mo-Su 08:00-23:00",
+    "url": "https://www.altawarpharmacy.ae/",
+    "sameAs": [
+      "https://facebook.com/yourpage",
+      "https://instagram.com/yourpage",
+      "https://twitter.com/yourpage"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Top bar -->
+  <div class="top-bar" role="region" aria-label="Top bar">
+    <div class="top-left">
+      <span class="badge">صيدلية الطوار • Al Tawar Pharmacy</span>
+      <a href="tel:+971123456789" aria-label="Call us"><i class="fa fa-phone" aria-hidden="true"></i> +971 1 234 56789</a>
+      <a href="#" aria-label="Store hours"><i class="fa fa-clock" aria-hidden="true"></i> Mon–Sun 8:00–23:00</a>
+    </div>
+
+    <div class="top-right">
+      <a href="#" id="dirToggle" title="Toggle language/direction"><i class="fa fa-language" aria-hidden="true"></i> EN/ع</a>
+      <a href="#" class="muted">Track Order</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header role="banner">
+    <div class="brand-logo" aria-hidden="false">
+      <div class="logo-icon" aria-hidden="true"><i class="fa-solid fa-syringe" aria-hidden="true"></i></div>
+      <div class="brand-name">
+        <h1>Al Tawar Pharmacy</h1>
+        <h2>صيدلية الطوار — Hor Al Anz, Deira, Dubai</h2>
+      </div>
+    </div>
+
+    <nav class="nav-buttons" role="navigation" aria-label="Main actions">
+      <a class="btn btn-whatsapp" id="whatsappBtn" href="https://wa.me/971123456789?text=Hello%20Al%20Tawar%20Pharmacy" target="_blank" rel="noopener" aria-label="Contact on WhatsApp">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
+      </a>
+      <a class="btn btn-primary" href="#contact" aria-label="Book consultation"><i class="fa fa-calendar-check" aria-hidden="true"></i> Book Consultation</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+      <h2 id="hero-heading">Fast, Trusted Pharmacy Care in Dubai — صيدلية موثوقة وسريعة في دبي</h2>
+      <p>We provide prescription refills, OTC medicines, vaccinations, and home delivery. Free consultation by our licensed pharmacists. التوصيل للمنزل وخدمات استشارية من الصيادلة المرخصين.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#services"><i class="fa fa-pills" aria-hidden="true"></i> Our Services</a>
+        <a class="btn" href="#products"><i class="fa fa-box-open" aria-hidden="true"></i> Shop Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section" aria-labelledby="services-heading">
+    <div class="section-header">
+      <h3 id="services-heading">Our Services — خدماتنا</h3>
+      <div class="muted">Professional care • Ready stock • Delivery across Dubai</div>
+    </div>
+
+    <div class="services-grid" role="list">
+      <article class="service-card" role="listitem" aria-label="Prescription Refills">
+        <div class="service-icon"><i class="fa fa-prescription-bottle-medical fa-2x" style="color:var(--primary-red)" aria-hidden="true"></i></div>
+        <div class="service-content">
+          <h4>Prescription Refills</h4>
+          <p>Submit your prescription online or in-store — quick refill and secure packaging. استبدال الروشتة عبر الإنترنت أو في المتجر.</p>
+        </div>
+      </article>
+
+      <article class="service-card" role="listitem" aria-label="Vaccinations">
+        <div class="service-icon"><i class="fa fa-syringe fa-2x" style="color:var(--primary-red)" aria-hidden="true"></i></div>
+        <div class="service-content">
+          <h4>Vaccinations</h4>
+          <p>Flu shots and travel vaccines provided by certified nurses. تطعيمات الإنفلونزا والسفر تحت إشراف ممرضين معتمدين.</p>
+        </div>
+      </article>
+
