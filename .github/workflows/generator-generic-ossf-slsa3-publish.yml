@@ -64,3 +64,12 @@ jobs:
     with:
       base64-subjects: "${{ needs.build.outputs.digests }}"
       upload-assets: true # Optional: Upload to a new release
+# Create a folder under the drive root
+mkdir \actions-runner ; cd \actions-runner
+# Download the latest runner package
+Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.328.0/actions-runner-win-x64-2.328.0.zip -OutFile actions-runner-win-x64-2.328.0.zip
+# Extract the installer
+Add-Type -AssemblyName System.IO.Compression.FileSystem ;
+[System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD\actions-runner-win-x64-2.328.0.zip", "$PWD")
+
+
