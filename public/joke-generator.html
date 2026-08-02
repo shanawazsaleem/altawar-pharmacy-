@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Random Joke Generator</title>
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --accent:#ff6b6b;
+      --muted:#6b7280;
+      --radius:12px;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e8f0ff 0%,var(--bg) 100%);color:#111}
+    .app{width:min(760px,94%);background:var(--card);padding:28px;border-radius:var(--radius);box-shadow:0 12px 40px rgba(17,24,39,0.08)}
+    h1{margin:0 0 8px;font-size:1.4rem}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+    select, button, input[type="checkbox"]{font-size:0.95rem}
+    select, .btn{padding:8px 12px;border-radius:8px;border:1px solid #e6e9ef;background:#fff}
+    .btn{cursor:pointer;background:linear-gradient(180deg,var(--accent),#ff4f4f);color:#fff;border:none;box-shadow:0 6px 18px rgba(255,107,107,0.18)}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .joke-card{padding:18px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid #eef2ff;min-height:96px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+    .joke-text{font-size:1.05rem;line-height:1.5}
+    .meta{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px}
+    .muted{color:var(--muted);font-size:.92rem}
+    .actions{display:flex;gap:8px}
+    .small{font-size:.88rem;padding:6px 10px;border-radius:8px;border:1px solid #e6e9ef;background:#fff;cursor:pointer}
+    .small:active{transform:translateY(1px)}
+    .spinner{width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:rgba(255,255,255,0.9);animation:spin .9s linear infinite;display:inline-block;vertical-align:middle}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    footer{margin-top:16px;text-align:right;color:var(--muted);font-size:.85rem}
+    @media (max-width:520px){.controls{flex-direction:column;align-items:stretch}.actions{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+  <main class="app" role="main" aria-labelledby="title">
+    <header>
+      <h1 id="title">Random Joke Generator</h1>
+      <p class="lead">Fetch a fresh joke from JokeAPI — safe-by-default with optional categories.</p>
+    </header>
+
+    <div class="controls" aria-hidden="false">
+      <label for="category" class="muted">Category</label>
+      <select id="category" aria-label="Joke category">
+        <option value="Any">Any</option>
+        <option value="Programming">Programming</option>
+        <option value="Misc">Misc</option>
+        <option value="Pun">Pun</option>
+        <option value="Spooky">Spooky</option>
+        <option value="Dark">Dark</option>
+        <option value="Christmas">Christmas</option>
+      </select>
+
+      <label style="display:inline-flex;align-items:center;gap:8px;">
+        <input type="checkbox" id="safeMode" />
+        <span class="muted">Exclude NSFW / sensitive</span>
+      </label>
+
+      <button id="getJoke" class="btn" aria-label="Get a random joke">Get Joke</button>
+    </div>
+
+    <section class="joke-card" aria-live="polite" aria-atomic="true" id="jokeCard">
+      <div class="joke-text" id="jokeText">Click "Get Joke" to load a funny one!</div>
+
+      <div class="meta" role="group" aria-label="Joke actions and info">
+        <div class="muted" id="jokeMeta">—</div>
+        <div class="actions">
+          <button class="small" id="copyBtn" title="Copy joke">Copy</button>
+          <button class="small" id="tweetBtn" title="Tweet joke">Tweet</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>Powered by <a href="https://v2.jokeapi.dev" target="_blank" rel="noopener noreferrer">JokeAPI</a></footer>
+  </main>
+
+<script>
+(() => {
+  const categoryEl = document.getElementById('category');
+  const safeEl = document.getElementById('safeMode');
+  const getBtn = document.getElementById('getJoke');
+  const jokeTextEl = document.getElementById('jokeText');
+  const jokeMeta = document.getElementById('jokeMeta');
+  const copyBtn = document.getElementById('copyBtn');
+  const tweetBtn = document.getElementById('tweetBtn');
+
+  // Build API URL from selection
+  function buildUrl() {
+    const category = encodeURIComponent(categoryEl.value);
+    // blacklist sensitive flags when safe mode on
+    const blacklist = safeEl.checked ? 'nsfw,religious,political,racist,sexist,explicit' : '';
+    // request any type so we can handle two-part jokes too
+    let url = `https://v2.jokeapi.dev/joke/${category}?format=json`;
+    if (blacklist) url += `&blacklistFlags=${blacklist}`;
+    // ask for a single random joke (JokeAPI randomizes)
+    return url;
+  }
+
+  // Render a joke object from API
+  function renderJoke(data) {
+    if (!data) {
+      jokeTextEl.textContent = 'No joke available.';
+      jokeMeta.textContent = '—';
+      return;
+    }
+
+    // API can return 'single' or 'twopart'
+    if (data.type === 'single') {
+      jokeTextEl.textContent = data.joke;
+    } else if (data.type === 'twopart') {
+      // show setup then delivery separated
+      jokeTextEl.innerHTML = `<strong>${escapeHtml(data.setup)}</strong><br><br>${escapeHtml(data.delivery)}`;
+    } else {
+      jokeTextEl.textContent = 'Unexpected joke format.';
+    }
+
+    // meta information
+    const category = data.category || 'Unknown';
+    const id = data.id !== undefined ? `ID:${data.id}` : '';
+    const safe = (data.flags && Object.keys(data.flags).every(f => !data.flags[f])) ? 'Safe' : 'Contains flags';
+    jokeMeta.textContent = `${category} ${id} • ${safe}`;
+  }
+
+  // Escape to avoid accidental HTML injection
+  function escapeHtml(s) {
+    if (!s) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+  }
+
+  // Fetch joke and update UI
+  async function fetchJoke() {
+    const url = buildUrl();
+    setLoading(true);
+    try {
+      const resp = await fetch(url, {cache: 'no-store'});
+      if (!resp.ok) throw new Error(`Network: ${resp.status}`);
+      const data = await resp.json();
+
+      // JokeAPI returns a "error" boolean on failure
+      if (data.error) {
+        console.warn('JokeAPI error', data);
+        jokeTextEl.textContent = 'No joke available right now. Try again later.';
+        jokeMeta.textContent = 'Error from API';
+      } else {
+        renderJoke(data);
+      }
+    } catch (err) {
+      console.error(err);
+      jokeTextEl.textContent = 'Failed to fetch a joke. Check your connection.';
+      jokeMeta.textContent = 'Network error';
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // UI helpers
+  function setLoading(isLoading) {
+    getBtn.disabled = isLoading;
+    getBtn.innerHTML = isLoading ? '<span class="spinner" aria-hidden="true"></span> Loading…' : 'Get Joke';
+  }
+
+  // Copy current joke text to clipboard
+  async function copyJoke() {
+    try {
+      const text = jokeTextEl.innerText.trim();
+      if (!text) return;
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => copyBtn.textContent = 'Copy', 1200);
+    } catch (err) {
+      console.error('Copy failed', err);
+      copyBtn.textContent = 'Copy failed';
+      setTimeout(() => copyBtn.textContent = 'Copy', 1200);
+    }
+  }
+
+  // Open tweet window prefilled
+  function tweetJoke() {
+    const text = jokeTextEl.innerText.trim();
+    if (!text) return;
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' — via JokeAPI')}`;
+    window.open(url, '_blank', 'noopener');
+  }
+
+  // Event listeners
+  getBtn.addEventListener('click', fetchJoke);
+  copyBtn.addEventListener('click', copyJoke);
+  tweetBtn.addEventListener('click', tweetJoke);
+
+  // Keyboard: ENTER on select triggers fetch
+  categoryEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') fetchJoke(); });
+
+  // Load an initial joke
+  fetchJoke();
+})();
+</script>
+</body>
+</html>
